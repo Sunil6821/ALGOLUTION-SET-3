@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SquareFreeDivisors {
+
+   
+    public static boolean isSquareFree(int n) {
+        if (n <= 0) {
+            return false; 
+        }
+
+        for (int i = 2; i * i <= n; i++) {
+            if (n % (i * i) == 0) {
+                return false; 
+            }
+        }
+        return true; 
+    }
+
+    
+    public static List<Integer> findDivisors(int number) {
+        List<Integer> divisors = new ArrayList<>();
+
+        for (int i = 1; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                divisors.add(i); 
+                if (i != number / i) {
+                    divisors.add(number / i); 
+                }
+            }
+        }
+        return divisors; 
+    }
+
+    
+    public static int countSquareFreeDivisors(int number) {
+        List<Integer> divisors = findDivisors(number);
+        int squareFreeCount = 0;
+
+        for (int divisor : divisors) {
+            
+            if (divisor != 1 && divisor != number && isSquareFree(divisor)) {
+                squareFreeCount++;
+            }
+        }
+
+        return squareFreeCount; 
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+        
+        int squareFreeDivisorCount = countSquareFreeDivisors(number);
+        System.out.println("Count of square-free divisors of " + number + " is : " + squareFreeDivisorCount);
+        
+        scanner.close();
+    }
+}
