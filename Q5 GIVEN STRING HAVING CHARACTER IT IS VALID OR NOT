@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool isvalid(string s)
+{
+    stack<char> ans;
+    for(char x : s)
+    {
+        if(x=='(' || x=='{' || x=='[')
+        {
+            ans.push(x);
+        }
+        else{
+            if(!ans.empty() && (ans.top()=='('|| x==')') ||(ans.top()=='{' || x=='}') ||(ans.top()=='[' || x==']') )
+            {
+                ans.pop();
+            }
+            else
+            return false;
+        }
+        
+    }
+    return ans.empty();
+}
+
+int main()
+{
+    string s ="()(";
+    bool result = isvalid(s);
+    cout << boolalpha << result;
+    return 0;
+}
